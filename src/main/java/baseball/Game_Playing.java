@@ -6,6 +6,36 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Game_Playing {
+
+    public void Main_Place(){
+        while(true){
+            // 변수 선언
+            List<Integer> NUM_ANSWER = new ArrayList<>();
+            List<Integer> MY_ANSWER = new ArrayList<>();
+            int STRIKE_CNT = 0;
+            String Restart = "";
+
+            NUM_ANSWER = Make_Answer();
+            System.out.println(NUM_ANSWER);
+            while(STRIKE_CNT != 3){
+
+                MY_ANSWER = Input_Answer();
+
+                STRIKE_CNT = Check_Answer(NUM_ANSWER,MY_ANSWER);
+            }
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임종료");
+            while(!(Restart.equals("1")  || Restart.equals("2"))){
+                System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
+                Restart = camp.nextstep.edu.missionutils.Console.readLine();
+            }
+            if(Restart.equals("2")) {
+                System.out.println("게임이 종료되었습니다.");
+                break;
+            }
+        }
+    }
+
      public List<Integer> Make_Answer(){
          
          String s_Answer = "";
@@ -20,14 +50,22 @@ public class Game_Playing {
 
              }else{
                  // 중복된 값 체크
-                 if(!i_Answer.contains(num)){
-                     i_Answer.add(num);
-                 }
+//                 if(!i_Answer.contains(num)){
+//                     i_Answer.add(num);
+//                 }
+                 Duplication_Check(i_Answer, num);
              }
          }
 
 
          return  i_Answer;
+     }
+
+     //depth 2 제한으로 인한 중복된 값 체크해주는 함수 생성
+     public void Duplication_Check(List<Integer> i_Answer, int num){
+         if(!i_Answer.contains(num)){
+             i_Answer.add(num);
+         }
      }
 
      public List<Integer> Input_Answer(){
